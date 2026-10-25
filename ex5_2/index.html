@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="D3 bar and line charts comparing TV energy consumption and Australian electricity spot prices from 1998 to 2024.">
+  <title>TV Energy Guide | Exercise 5.2</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Load D3 before the chart code; defer preserves order after HTML parsing. -->
+  <script src="https://d3js.org/d3.v7.min.js" defer></script>
+  <script src="js/barChart.js" defer></script>
+  <script src="js/line-chart.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#home"><span class="brand-mark">⚡</span> WattWise <span class="brand-small">/ D3 LAB</span></a>
+    <span class="header-tag">COS30045 · Exercise 5.2</span>
+  </header>
+  <main id="home">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">ENERGY SMARTER, NOT HARDER</span>
+        <h1>Small decisions.<br><span>Lower energy use.</span></h1>
+        <p class="hero-description">How does energy use compare across TV screen types? Explore the average annual energy consumption of 55-inch televisions, keeping screen size the same for each comparison.</p>
+        <a class="hero-link" href="#visualisation">Compare screen types <span aria-hidden="true">↘</span></a>
+      </div>
+      <div class="hero-graphic" aria-hidden="true">
+        <div class="glow"></div>
+        <div class="tv">
+          <div class="tv-screen">
+            <div class="hill hill-back"></div>
+            <div class="hill hill-front"></div>
+            <div class="screen-sun"></div>
+          </div>
+        </div>
+        <div class="tv-stand"></div>
+        <div class="energy-tag"><span class="energy-dot"></span> ENERGY AWARE</div>
+      </div>
+    </section>
+    <section class="insights" aria-label="Energy tips">
+      <article class="insight-card">
+        <span class="card-number">01 / SCREEN SIZE</span>
+        <h2>Size matters</h2>
+        <p>Larger televisions often require more electricity, although technology and efficiency also matter.</p>
+      </article>
+      <article class="insight-card">
+        <span class="card-number">02 / ENERGY LABEL</span>
+        <h2>Check the rating</h2>
+        <p>Compare the energy label and estimated annual energy use when choosing a television.</p>
+      </article>
+      <article class="insight-card">
+        <span class="card-number">03 / DAILY HABITS</span>
+        <h2>Switch it off</h2>
+        <p>Turning off a television when it is not being used helps avoid unnecessary electricity use.</p>
+      </article>
+    </section>
+    <section class="lab-section" id="visualisation" aria-labelledby="lab-title">
+      <div class="lab-heading">
+        <div>
+          <span class="panel-kicker">EXERCISE 5.1 / VERTICAL BAR CHART</span>
+          <h2 id="lab-title">Which screen type uses the most energy?</h2>
+        </div>
+        <p>Average annual energy consumption for 55-inch TVs, ordered from highest to lowest. Values above the bars are rounded to the nearest kWh.</p>
+      </div>
+      <!-- A unique target keeps this chart separate from later exercises. -->
+      <div id="bar-chart" class="responsive-svg-container"></div>
+      <p id="chart-error" role="alert" hidden></p>
+      <noscript><p>Enable JavaScript to display the energy charts.</p></noscript>
+    </section>
+    <section class="lab-section" id="electricity-prices" aria-labelledby="price-title">
+      <div class="lab-heading">
+        <div>
+          <span class="panel-kicker">EXERCISE 5.2 / SCATTER PLOT AND LINE CHART</span>
+          <h2 id="price-title">How have electricity prices changed?</h2>
+        </div>
+        <p>Average electricity spot price from 1998 to 2024 across Queensland, New South Wales, Victoria and South Australia. Each point represents one year.</p>
+      </div>
+      <!-- Exercise 5.2 uses its own target below the Exercise 5.1 bar chart. -->
+      <div id="line-chart" class="responsive-svg-container"></div>
+      <p id="line-chart-error" class="chart-error" role="alert" hidden></p>
+      <p class="chart-note">Source: ARE_Spot_Prices.csv. The supplied average excludes Tasmania and Snowy because they do not cover the full period. Prices are in dollars per megawatt hour ($/MWh).</p>
+    </section>
+  </main>
+  <footer><span>WattWise · Learning D3.js</span><span>Built for COS30045 — Week 5</span></footer>
+</body>
+</html>
