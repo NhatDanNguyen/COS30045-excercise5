@@ -1,6 +1,6 @@
-// COS30045 — Exercise 5.1: vertical bars with scaled axes and labels.
+// COS30045 Data Visualisation
 const drawBarChart = data => {
-  // 1. Reserve margins for axis ticks, the energy label and value labels.
+
   const margin = { top: 60, right: 30, bottom: 45, left: 60 };
   const width = 1000;
   const height = 500;
@@ -22,12 +22,10 @@ const drawBarChart = data => {
     .text("Screen types ordered from highest to lowest average annual energy use. " +
       data.map(d => `${d.Screen_Tech}: ${d.Energy_Consumption} kWh/year`).join("; ") + ".");
 
-  // 2. Move the plotting origin inside the margins; all marks use this group.
   const innerChart = svg.append("g")
     .attr("class", "inner-chart")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  // 3. Categories use bands; the reversed numeric range makes larger bars taller.
   const xScale = d3.scaleBand()
     .domain(data.map(d => d.Screen_Tech))
     .range([0, innerWidth])
@@ -38,7 +36,6 @@ const drawBarChart = data => {
     .nice() // Round the upper bound to leave space above the highest bar.
     .range([innerHeight, 0]);
 
-  // 4. Remove category tick marks and move the bottom axis to the baseline.
   const bottomAxis = d3.axisBottom(xScale).tickSize(0).tickPadding(12);
   const leftAxis = d3.axisLeft(yScale).ticks(8).tickSizeOuter(0);
 
@@ -58,7 +55,6 @@ const drawBarChart = data => {
     .attr("text-anchor", "start")
     .text("Energy Consumption (kWh/year)");
 
-  // 5. SVG y starts at the top, so bar height is the baseline minus scaled y.
   innerChart.selectAll(".bar")
     .data(data)
     .join("rect")
@@ -69,7 +65,6 @@ const drawBarChart = data => {
     .attr("y", d => yScale(d.Energy_Consumption))
     .attr("fill", "green");
 
-  // 6. Round only the displayed labels; scales retain the original precision.
   innerChart.selectAll(".value-label")
     .data(data)
     .join("text")
@@ -80,7 +75,6 @@ const drawBarChart = data => {
     .text(d => `${d3.format(".0f")(d.Energy_Consumption)} kWh`);
 };
 
-// CSV values arrive as strings; convert the averages before sorting and scaling.
 d3.csv("./data/screenTypeEnergy55inch.csv", d => ({
   Screen_Tech: d.Screen_Tech,
   Energy_Consumption: +d.Energy_Consumption
@@ -91,7 +85,6 @@ d3.csv("./data/screenTypeEnergy55inch.csv", d => ({
   }
 
   data.sort((a, b) => d3.descending(a.Energy_Consumption, b.Energy_Consumption));
-  console.log("55-inch TV energy averages (numeric), sorted descending:", data);
   drawBarChart(data);
 }).catch(error => {
   d3.select("#chart-error")

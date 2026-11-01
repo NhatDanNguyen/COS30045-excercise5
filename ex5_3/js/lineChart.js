@@ -1,13 +1,12 @@
-// COS30045 — Exercise 5.2: build a line chart from scaled scatter points.
+// COS30045 Data Visualisation
 const drawLineChart = data => {
-  // 1. Match Exercise 5.1 so both charts share dimensions and plotting margins.
+
   const margin = { top: 60, right: 30, bottom: 45, left: 60 };
   const width = 1000;
   const height = 500;
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
-  // 2. Both variables are continuous; extent returns the earliest/latest years.
   const xScale = d3.scaleLinear()
     .domain(d3.extent(data, d => d.year))
     .range([0, innerWidth]);
@@ -16,12 +15,10 @@ const drawLineChart = data => {
     .domain([0, d3.max(data, d => d.averagePrice)])
     .range([innerHeight, 0]);
 
-  // 3. Integer formatting prevents commas or decimal places in year labels.
   const bottomAxis = d3.axisBottom(xScale)
     .tickFormat(d3.format("d"));
   const leftAxis = d3.axisLeft(yScale);
 
-  // 4. Translate the plotting group once; all axes and marks use this origin.
   const svg = d3.select("#line-chart")
     .append("svg")
     .attr("viewBox", `0 0 ${width} ${height}`)
@@ -63,7 +60,6 @@ const drawLineChart = data => {
     .attr("text-anchor", "middle")
     .text("Year");
 
-  // 5. Draw the scatter points first, using the same scales as the axes.
   innerChart.selectAll(".price-point")
     .data(data)
     .join("circle")
@@ -75,7 +71,6 @@ const drawLineChart = data => {
     .append("title")
     .text(d => `${d.year}: $${d3.format(".2f")(d.averagePrice)} per MWh`);
 
-  // 6. Connect the points chronologically with the brief's straight green line.
   const lineGenerator = d3.line()
     .x(d => xScale(d.year))
     .y(d => yScale(d.averagePrice));
@@ -87,7 +82,6 @@ const drawLineChart = data => {
     .attr("stroke", "green");
 };
 
-// Read the CSV's exact headers, then convert both fields before scaling.
 d3.csv("./data/ARE_Spot_Prices.csv", d => ({
   year: +d.Year,
   averagePrice: +d.averagePrice
@@ -97,9 +91,7 @@ d3.csv("./data/ARE_Spot_Prices.csv", d => ({
     throw new Error("Expected numeric years and non-negative average electricity prices.");
   }
 
-  // A line connects rows in order, so preserve the time sequence.
   data.sort((a, b) => d3.ascending(a.year, b.year));
-  console.log("Electricity spot prices (numeric year and averagePrice):", data);
   drawLineChart(data);
 }).catch(error => {
   d3.select("#line-chart-error")

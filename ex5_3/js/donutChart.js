@@ -1,26 +1,22 @@
-// COS30045 — Exercise 5.3: proportions of TV models by screen-size category.
+// COS30045 Data Visualisation
 const drawDonutChart = data => {
-  // 1. Use the shortest SVG side so the circle fits, with 20 units of padding.
+
   const width = 1000;
   const height = 500;
   const radius = Math.min(width, height) / 2 - 20;
 
-  // 2. Assign the brief's Set2 colours to categories in their CSV order.
   const color = d3.scaleOrdinal()
     .domain(data.map(d => d.Size))
     .range(d3.schemeSet2);
 
-  // 3. Convert counts to angles; disable D3's default sorting to keep row order.
   const pie = d3.pie()
     .value(d => d.Count)
     .sort(null);
 
-  // 4. The inner radius removes the centre; the outer radius sets the size.
   const arcGenerator = d3.arc()
     .innerRadius(radius * 0.6)
     .outerRadius(radius * 1);
 
-  // 5. Give this exercise its own SVG and move the origin to its centre.
   const svg = d3.select("#donut-chart")
     .append("svg")
     .attr("viewBox", `0 0 ${width} ${height}`)
@@ -40,7 +36,6 @@ const drawDonutChart = data => {
     .attr("class", "inner-chart")
     .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
-  // 6. Each pie result wraps its original CSV row in d.data.
   const slices = pie(data);
   innerChart.selectAll(".donut-slice")
     .data(slices)
@@ -51,7 +46,6 @@ const drawDonutChart = data => {
     .attr("stroke", "white")
     .attr("stroke-width", 2);
 
-  // 7. The arc centroid puts each category label halfway through its slice.
   innerChart.selectAll(".donut-label")
     .data(slices)
     .join("text")
@@ -62,7 +56,6 @@ const drawDonutChart = data => {
     .text(d => d.data.Size);
 };
 
-// Match the supplied headers (Size, Count), converting only Count to a number.
 d3.csv("./data/sizeCount.csv", d => ({
   Size: d.Size,
   Count: +d.Count
@@ -72,7 +65,6 @@ d3.csv("./data/sizeCount.csv", d => ({
     throw new Error("Expected screen-size categories and positive integer counts.");
   }
 
-  console.log("TV size counts (numeric), in original CSV order:", data);
   drawDonutChart(data);
 }).catch(error => {
   d3.select("#donut-chart-error")
