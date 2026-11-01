@@ -42,6 +42,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .site-title { margin: 0; font-size: 31px; line-height: 1.15; font-weight: 600; letter-spacing: -1.1px; }
 .site-title a { display: flex; align-items: center; gap: 17px; text-decoration: none; }
 .site-title a:hover { color: white; }
+.site-identity { min-width: 0; }
+.author-credit { display: flex; flex-wrap: wrap; align-items: baseline; gap: 5px 12px; margin: 13px 0 0; padding-left: 51px; font-size: 11px; line-height: 1.6; letter-spacing: 0; }
+.author-name { color: white; font-weight: 500; }
+.author-id { display: inline-flex; gap: 6px; align-items: baseline; padding-left: 12px; border-left: 1px solid rgb(255 255 255 / 30%); color: #e2eaff; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.author-id-label { color: #c6d7ff; font-size: 9px; }
 .demo-name { display: block; margin-bottom: 7px; font-size: 13px; font-weight: 400; letter-spacing: 0; color: #dce6ff; }
 .demo-subject { display: block; }
 .brand-mark { display: flex; align-items: flex-end; gap: 4px; width: 34px; height: 38px; flex-shrink: 0; }
@@ -137,6 +142,9 @@ footer a { text-decoration-color: #b6c4d9; }
   .site-header { gap: 22px; padding: 24px 18px 18px; }
   .site-title { font-size: 25px; letter-spacing: -.8px; }
   .site-title a { gap: 13px; }
+  .author-credit { padding-left: 43px; margin-top: 12px; gap: 3px 9px; font-size: 10px; }
+  .author-id { padding-left: 9px; }
+  .author-id-label { font-size: 8px; }
   .brand-mark { transform: scale(.85); transform-origin: left center; width: 30px; }
   .week-nav { gap: 5px; }
   .week-nav a { min-width: 0; padding: 10px 11px; font-size: 13px; }
